@@ -14,7 +14,7 @@ const PatientDashboard = () => {
   return (
     <div className="patient-dashboard-container">
       <h1 className="dashboard-title">Patient Dashboard</h1>
-      
+
       {/* Patient Details Section */}
       {view === 'details' && (
         <div className="patient-details">

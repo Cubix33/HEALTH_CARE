@@ -1,0 +1,65 @@
+/* DoctorDashboard.css */
+
+.doctor-dashboard-container {
+   height: 80vh;
+        align-items:center;
+        display: flex;
+  flex-direction: column;
+}
+
+.doctor-dashboard-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.doctor-form {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.form-input, .file-input, .form-textarea {
+  width: 100%;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  height: 150px;
+}
+
+.upload-options {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+}
+
+.upload-options label {
+  font-size: 1rem;
+  color: #555;
+}
+
+.form-button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-button:hover {
+  background-color: #218838;
+}
+

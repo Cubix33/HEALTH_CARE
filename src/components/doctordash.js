@@ -1,0 +1,102 @@
+import React, { useState } from 'react';
+import './doctordash.css';
+
+const DoctorDashboard = () => {
+  const [patientID, setPatientID] = useState('');
+  const [patientName, setPatientName] = useState('');
+  const [uploadType, setUploadType] = useState(''); // To track whether the doctor is uploading or entering details manually
+  const [prescriptionFile, setPrescriptionFile] = useState(null);
+  const [prescriptionDetails, setPrescriptionDetails] = useState('');
+
+  const handleFileUpload = (e) => {
+    setPrescriptionFile(e.target.files[0]);
+  };
+
+  const handleSubmit = () => {
+    if (uploadType === 'file' && prescriptionFile) {
+      alert(`Prescription for ${patientName} uploaded successfully.`);
+    } else if (uploadType === 'manual' && prescriptionDetails) {
+      alert(`Prescription for ${patientName} entered successfully.`);
+    } else {
+      alert('Please complete the form.');
+    }
+
+    // Clear the form fields
+    setPatientID('');
+    setPatientName('');
+    setUploadType('');
+    setPrescriptionFile(null);
+    setPrescriptionDetails('');
+  };
+
+  return (
+    <div className="doctor-dashboard-container">
+      <h1 className="doctor-dashboard-title">Doctor Dashboard</h1>
+      <div className="doctor-form">
+        <input
+          type="text"
+          placeholder="Patient ID"
+          value={patientID}
+          onChange={(e) => setPatientID(e.target.value)}
+          className="form-input"
+        />
+        <input
+          type="text"
+          placeholder="Patient Name"
+          value={patientName}
+          onChange={(e) => setPatientName(e.target.value)}
+          className="form-input"
+        />
+        <div className="upload-options">
+          <label>
+            <input
+              type="radio"
+              value="file"
+              checked={uploadType === 'file'}
+              onChange={() => setUploadType('file')}
+            />
+            Upload Prescription (Image/PDF)
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="manual"
+              checked={uploadType === 'manual'}
+              onChange={() => setUploadType('manual')}
+            />
+            Enter Prescription Details Manually
+          </label>
+        </div>
+
+        {uploadType === 'file' && (
+          <div>
+            <input
+              type="file"
+              accept="image/*,application/pdf"
+              onChange={handleFileUpload}
+              className="file-input"
+            />
+          </div>
+        )}
+
+        {uploadType === 'manual' && (
+          <div>
+            <textarea
+              placeholder="Enter prescription details here"
+              value={prescriptionDetails}
+              onChange={(e) => setPrescriptionDetails(e.target.value)}
+              className="form-textarea"
+            />
+          </div>
+        )}
+
+        <button onClick={handleSubmit} className="form-button">
+          Submit
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default DoctorDashboard;
+

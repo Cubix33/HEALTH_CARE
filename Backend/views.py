@@ -8,7 +8,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied, NotFound
-
+import pickle
+with open('diabetes_xgb.pkl', 'rb') as file:
+    model = pickle.load(file)
 
 # generates token for user
 def get_tokens_for_user(user):
@@ -70,8 +72,28 @@ class GetDiabetesDataView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 # implement the ml logic later 
-def ml_generate_outcome(data):
-   pass
+
+def ml_generate_outcome(diabetes_data):
+    # Convert `diabetes_data` to a dictionary to create a DataFrame
+    data_dict = {
+        'Pregnancies': [diabetes_data.pregnancies],
+        'Glucose': [diabetes_data.glucose],
+        'BloodPressure': [diabetes_data.blood_pressure],
+        'SkinThickness': [diabetes_data.skin_thickness],
+        'Insulin': [diabetes_data.insulin],
+        'BMI': [diabetes_data.bmi],
+        'DiabetesPedigreeFunction': [diabetes_data.diabetes_pedigree_function],
+        'Age': [diabetes_data.age]
+    }
+    
+    # Create a DataFrame from the patient's data
+    df = pd.DataFrame(data_dict)
+    
+    # Make a prediction using the loaded model
+    prediction = model.predict(df)
+    
+    # Return the prediction (1 for diabetic, 0 for non-diabetic)
+    return prediction[0]
 
 class DiabetesDataView(APIView):
     
@@ -151,7 +173,24 @@ class PatientDataView(APIView):
         diabetes_data.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def calculate_outcome(self, diabetes_data):
-        # Replace this with your machine learning logic
-        # Example: return some_ml_model.predict(diabetes_data)
-        return 1  # Just a placeholder
+   def calculate_outcome(self, diabetes_data):
+    # Convert `diabetes_data` to a dictionary to create a DataFrame
+    data_dict = {
+        'Pregnancies': [diabetes_data.pregnancies],
+        'Glucose': [diabetes_data.glucose],
+        'BloodPressure': [diabetes_data.blood_pressure],
+        'SkinThickness': [diabetes_data.skin_thickness],
+        'Insulin': [diabetes_data.insulin],
+        'BMI': [diabetes_data.bmi],
+        'DiabetesPedigreeFunction': [diabetes_data.diabetes_pedigree_function],
+        'Age': [diabetes_data.age]
+    }
+    
+    # Create a DataFrame from the patient's data
+    df = pd.DataFrame(data_dict)
+    
+    # Make a prediction using the loaded model
+    prediction = model.predict(df)
+    
+    # Return the prediction (1 for diabetic, 0 for non-diabetic)
+    return prediction[0]

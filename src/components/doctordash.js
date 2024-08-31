@@ -15,8 +15,9 @@ const DoctorDashboard = () => {
     bmi: '',
     diabetesPedigreeFunction: '',
     age: '',
-    outcome: ''
+   /* outcome: '' */
   });
+  const [patientFound, setPatientFound] = useState(false); // To track if a patient is found
 
   const handleFileUpload = (e) => {
     setPrescriptionFile(e.target.files[0]);
@@ -30,11 +31,31 @@ const DoctorDashboard = () => {
     }));
   };
 
+  const handlePatientSearch = () => {
+    // Mock API call to fetch patient details based on patientID
+    // Replace this with actual API call
+    const mockPatientData = {
+      patientID: '12345',
+      patientName: 'John Doe'
+    };
+    setPatientName(mockPatientData.patientName);
+    setPatientFound(true);
+
+   /* if (patientID === mockPatientData.patientID) {
+      setPatientName(mockPatientData.patientName);
+      setPatientFound(true);
+    } else {
+      alert('Patient not found. Please check the Patient ID.');
+      setPatientFound(false);
+      setPatientName('');
+    } */
+  };
+
   const handleSubmit = () => {
     if (uploadType === 'file' && prescriptionFile) {
-      alert(`Prescription for ${patientName} uploaded successfully.`);
+      alert(`Test Results for ${patientName} uploaded successfully.`);
     } else if (uploadType === 'manual' && Object.values(prescriptionDetails).every(detail => detail)) {
-      alert(`Prescription for ${patientName} entered successfully.`);
+      alert(`Test results for ${patientName} entered successfully.`);
     } else {
       alert('Please complete the form.');
     }
@@ -53,8 +74,9 @@ const DoctorDashboard = () => {
       bmi: '',
       diabetesPedigreeFunction: '',
       age: '',
-      outcome: ''
+    /*  outcome: '' */
     });
+    setPatientFound(false);
   };
 
   return (
@@ -68,125 +90,117 @@ const DoctorDashboard = () => {
           onChange={(e) => setPatientID(e.target.value)}
           className="form-input"
         />
-        <input
-          type="text"
-          placeholder="Patient Name"
-          value={patientName}
-          onChange={(e) => setPatientName(e.target.value)}
-          className="form-input"
-        />
-        <div className="upload-options">
-          <label className="option-label">
-            <input
-              type="radio"
-              value="file"
-              checked={uploadType === 'file'}
-              onChange={() => setUploadType('file')}
-            />
-            Upload Prescription (Image/PDF)
-          </label>
-          <label className="option-label">
-            <input
-              type="radio"
-              value="manual"
-              checked={uploadType === 'manual'}
-              onChange={() => setUploadType('manual')}
-            />
-            Enter Prescription Details Manually
-          </label>
-        </div>
+        <button onClick={handlePatientSearch} className="form-button">Search</button>
 
-        {uploadType === 'file' && (
-          <div className="file-upload">
-            <input
-              type="file"
-              accept="image/*,application/pdf"
-              onChange={handleFileUpload}
-              className="file-input"
-            />
-          </div>
+        {patientFound && (
+          <>
+            <p>Patient Name: {patientName}</p>
+            <div className="upload-options">
+              <label className="option-label">
+                <input
+                  type="radio"
+                  value="file"
+                  checked={uploadType === 'file'}
+                  onChange={() => setUploadType('file')}
+                />
+                Upload Test Results (Image/PDF)
+              </label>
+              <label className="option-label">
+                <input
+                  type="radio"
+                  value="manual"
+                  checked={uploadType === 'manual'}
+                  onChange={() => setUploadType('manual')}
+                />
+                Enter Test Result Details Manually
+              </label>
+            </div>
+
+            {uploadType === 'file' && (
+              <div className="file-upload">
+                <input
+                  type="file"
+                  accept="image/*,application/pdf"
+                  onChange={handleFileUpload}
+                  className="file-input"
+                />
+              </div>
+            )}
+
+            {uploadType === 'manual' && (
+              <div className="manual-form">
+                <input
+                  type="text"
+                  name="pregnancies"
+                  placeholder="Pregnancies"
+                  value={prescriptionDetails.pregnancies}
+                  onChange={handleManualDetailChange}
+                  className="form-input"
+                />
+                <input
+                  type="number"
+                  name="glucose"
+                  placeholder="Glucose"
+                  value={prescriptionDetails.glucose}
+                  onChange={handleManualDetailChange}
+                  className="form-input"
+                />
+                <input
+                  type="number"
+                  name="bloodPressure"
+                  placeholder="Blood Pressure"
+                  value={prescriptionDetails.bloodPressure}
+                  onChange={handleManualDetailChange}
+                  className="form-input"
+                />
+                <input
+                  type="number"
+                  name="skinThickness"
+                  placeholder="Skin Thickness"
+                  value={prescriptionDetails.skinThickness}
+                  onChange={handleManualDetailChange}
+                  className="form-input"
+                />
+                <input
+                  type="number"
+                  name="insulin"
+                  placeholder="Insulin"
+                  value={prescriptionDetails.insulin}
+                  onChange={handleManualDetailChange}
+                  className="form-input"
+                />
+                <input
+                  type="number"
+                  name="bmi"
+                  placeholder="BMI"
+                  value={prescriptionDetails.bmi}
+                  onChange={handleManualDetailChange}
+                  className="form-input"
+                />
+                <input
+                  type="number"
+                  name="diabetesPedigreeFunction"
+                  placeholder="Diabetes Pedigree Function"
+                  value={prescriptionDetails.diabetesPedigreeFunction}
+                  onChange={handleManualDetailChange}
+                  className="form-input"
+                />
+                <input
+                  type="number"
+                  name="age"
+                  placeholder="Age"
+                  value={prescriptionDetails.age}
+                  onChange={handleManualDetailChange}
+                  className="form-input"
+                />
+              </div>
+            )}
+
+            <button onClick={handleSubmit} className="form-button">
+              Submit
+            </button>
+          </>
         )}
-
-        {uploadType === 'manual' && (
-          <div className="manual-form">
-            <input
-              type="text"
-              name="pregnancies"
-              placeholder="Pregnancies"
-              value={prescriptionDetails.pregnancies}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-            <input
-              type="number"
-              name="glucose"
-              placeholder="Glucose"
-              value={prescriptionDetails.glucose}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-            <input
-              type="number"
-              name="bloodPressure"
-              placeholder="Blood Pressure"
-              value={prescriptionDetails.bloodPressure}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-            <input
-              type="number"
-              name="skinThickness"
-              placeholder="Skin Thickness"
-              value={prescriptionDetails.skinThickness}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-            <input
-              type="number"
-              name="insulin"
-              placeholder="Insulin"
-              value={prescriptionDetails.insulin}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-            <input
-              type="number"
-              name="bmi"
-              placeholder="BMI"
-              value={prescriptionDetails.bmi}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-            <input
-              type="number"
-              name="diabetesPedigreeFunction"
-              placeholder="Diabetes Pedigree Function"
-              value={prescriptionDetails.diabetesPedigreeFunction}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-            <input
-              type="number"
-              name="age"
-              placeholder="Age"
-              value={prescriptionDetails.age}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-            <input
-              type="text"
-              name="outcome"
-              placeholder="Outcome (Diabetes or Not)"
-              value={prescriptionDetails.outcome}
-              onChange={handleManualDetailChange}
-              className="form-input"
-            />
-          </div>
-        )}
-
-        <button onClick={handleSubmit} className="form-button">
-          Submit
-        </button>
       </div>
     </div>
   );

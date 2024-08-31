@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './patientdash.css'; // Import the CSS file
 
 const PatientDashboard = () => {
@@ -9,7 +9,36 @@ const PatientDashboard = () => {
 
   const handleViewChange = (viewType) => {
     setView(viewType);
+ 
+    };
+useEffect(() => {
+  try {
+    const script1 = document.createElement('script');
+    script1.src = "https://www.chatbase.co/embed.min.js";
+    script1.setAttribute('chatbotId', '_A3TDSIJnWqe4W1mi_mth');
+    script1.setAttribute('domain', 'www.chatbase.co');
+    script1.defer = true;
+    document.body.appendChild(script1);
+
+    const script2 = document.createElement('script');
+    script2.innerHTML = `
+      window.embeddedChatbotConfig = {
+        chatbotId: "_A3TDSIJnWqe4W1mi_mth",
+        domain: "www.chatbase.co"
+      };
+    `;
+    document.body.appendChild(script2);
+  } catch (error) {
+    console.error('Error loading chatbot script:', error);
+  }
+
+  return () => {
+    // Clean up the scripts when the component unmounts
+    const scripts = document.querySelectorAll('script[src*="chatbase.co"]');
+    scripts.forEach(script => document.body.removeChild(script));
   };
+}, []);
+
 
   return (
     <div className="patient-dashboard-container">
@@ -49,7 +78,7 @@ const PatientDashboard = () => {
         </div>
       )}
     </div>
-  );
+	 );
 };
 
 export default PatientDashboard;

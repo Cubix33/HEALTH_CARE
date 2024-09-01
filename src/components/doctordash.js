@@ -35,8 +35,8 @@ const DoctorDashboard = () => {
     // Mock API call to fetch patient details based on patientID
     // Replace this with actual API call
     const mockPatientData = {
-      patientID: '12345',
-      patientName: 'John Doe'
+      patientID: 'DMZXXT',
+      patientName: 'Hemank'
     };
     setPatientName(mockPatientData.patientName);
     setPatientFound(true);

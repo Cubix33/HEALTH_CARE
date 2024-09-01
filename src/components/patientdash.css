@@ -2,8 +2,10 @@
 .patient-dashboard-container {
       background: rgba(255, 255, 255, 0.5); /* White background with 50% opacity */
   padding: 20px; /* Add some padding for better appearance */
-  border-radius: 10px; /* 
-display: flex;
+  border-radius: 10px;
+ overflow-y: auto;
+min-height: 80vh;/* 
+ display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
@@ -20,15 +22,35 @@ display: flex;
   font-weight: bold;
 }
 
+.chart-container {
+  width: 80%;
+  height: 500px;
+  margin: 0 auto; /* Center the chart */
+}
+
 /* Section Styling */
-.patient-details, .analytics-section, .recommendations-section {
+.patient-details, .analytics-section {
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 80%;
-  max-width: 800px;
-  margin: 20px 0;
+  min-width: 500px;
+  margin: 20px auto;
+  min-height: 300px;
+  overflow-y: auto;
+}
+
+.recommendations-section{
+	background: white;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	width: 80%;
+	min-width: 500px;
+	margin: 20px auto;
+	max-height: 80vh;
+	overflow-y: auto;
 }
 
 /* Title for Sections */

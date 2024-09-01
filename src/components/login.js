@@ -39,7 +39,7 @@ const LoginPage = ({ role }) => {
 
   return (
     <div className="login-container">
-      <h1 className="login-title">{isSignup ? 'Patient Sign Up' : (role === 'doctor' ? 'Doctor' : 'Patient')} {isSignup ? 'Sign Up' : 'Login'}</h1>
+      <h1 className="login-title">{isSignup ? 'Patient ' : (role === 'doctor' ? 'Doctor' : 'Patient')} {isSignup ? 'Sign Up' : 'Login'}</h1>
       {isSignup ? (
         <div className="login-form">
           <input

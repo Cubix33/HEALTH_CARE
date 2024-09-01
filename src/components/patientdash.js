@@ -17,55 +17,6 @@ const PatientDashboard = () => {
  
     };
 
-// Chart data and configuration
-  const patientData = [150, 180, 7.5]; // Example data for the person
-  const idealData = [90, 120, 5.7]; // Ideal diabetic parameters
-
-  const chartData = {
-    labels: ['Fasting Blood Sugar', 'Postprandial', 'HbA1c'],
-    datasets: [
-      {
-        label: 'Patient Parameters',
-        data: patientData,
-        fill: false,
-        borderColor: 'rgb(255, 99, 132)',
-        tension: 0.1,
-      },
-      {
-        label: 'Ideal Parameters',
-        data: idealData,
-        fill: false,
-        borderColor: 'rgb(54, 162, 235)',
-        tension: 0.1,
-      }
-    ]
-  };
-
-  const chartOptions = {
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Blood Sugar Level (mg/dL) / HbA1c (%)',
-        },
-      },
-      x: {
-        title: {
-          display: true,
-          text: 'Diabetic Parameters',
-        },
-      },
-    },
-    plugins: {
-      title: {
-        display: true,
-        text: 'Diabetic Parameters Comparison',
-      },
-    },
-	   maintainAspectRatio: true,
-  };
-
 useEffect(() => {
   try {
     const script1 = document.createElement('script');
@@ -112,13 +63,20 @@ useEffect(() => {
           </div>
         </div>
       )}
-
-      {/* Analytics Section */}
+       {/* Analytics Section */}
       {view === 'analytics' && (
         <div className="analytics-section">
           <h2 className="section-title">Patient Analytics</h2>
           {/* Add your analytics display logic here */}
-          <Line data={chartData} options={chartOptions} />
+          <img src = "diabetes_plot.jpg" alt="Diabetes Plot"   style={{
+    width: '500px',
+    height: 'auto',
+    border: '2px solid #ccc',
+    borderRadius: '10px',
+    display: 'block',
+    margin: '0 auto',
+  }}
+/ >
           <button onClick={() => handleViewChange('details')} className="back-button">Back to Details</button>
         </div>
       )}

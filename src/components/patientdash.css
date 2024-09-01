@@ -29,7 +29,7 @@ min-height: 80vh;/*
 }
 
 /* Section Styling */
-.patient-details, .analytics-section {
+.patient-details {
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,6 +38,18 @@ min-height: 80vh;/*
   min-width: 500px;
   margin: 20px auto;
   min-height: 300px;
+  overflow-y: auto;
+}
+
+ .analytics-section {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 95%;
+  min-width: 500px;
+  margin: 20px auto;
+  max-height: 80vh;
   overflow-y: auto;
 }
 
